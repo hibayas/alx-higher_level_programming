@@ -1,18 +1,13 @@
 #!/usr/bin/python3
+# 4-new_in_list.py
+# Brennan D Baraban <375@holbertonschool.com>
+
+
 def new_in_list(my_list, idx, element):
-    """
-    Replaces an element in a list at a specific index without modifying it.
+    """Replace an element in a copied list at a specific position."""
+    if idx < 0 or idx > (len(my_list) - 1):
+        return (my_list)
 
-    Args:
-        my_list: List to perform operation on
-        idx: Index at which to place new element
-        element: Element to place in list
-
-    Returns:
-        Copy containing modification, or an unmodified copy if idx out of range
-    """
-
-    newList = my_list[:]
-    if idx >= 0 and idx < len(my_list):
-        newList[idx] = element
-    return newList
+    copy = [x for x in my_list]
+    copy[idx] = element
+    return (copy)

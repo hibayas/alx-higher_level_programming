@@ -1,23 +1,18 @@
 #!/usr/bin/python3
-"""This module contains code to display body of response if successful"""
+"""Sends a request to a given URL and displays the response body.
 
+Usage: ./7-error_code.py <URL>
+  - Handles HTTP errors.
+"""
+import sys
 import requests
-from sys import argv
-
-
-def handle_errors():
-    """Sends a `GET` request to a url and displays the body of the response
-    only if the response code is less than 400
-    """
-
-    url = argv[1]
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        print(response.text)
-    except requests.exceptions.RequestException:
-        print(f"Error code: {response.status_code}")
 
 
 if __name__ == "__main__":
-    handle_errors()
+    url = sys.argv[1]
+
+    r = requests.get(url)
+    if r.status_code >= 400:
+        print("Error code: {}".format(r.status_code))
+    else:
+        print(r.text)

@@ -1,17 +1,5 @@
-// Fetch from an api and translate
-
-const htmlDoc = $(document);
-const URL = 'https://fourtonfish.com/hellosalut/?lang=fr';
-const htmlTag = 'DIV#hello';
-
-const translateHello = (result) => $(htmlTag).text(result.hello);
-
-const ajaxGet = () => {
-  $.ajax({
-    url: URL,
-    type: 'GET',
-    success: translateHello
+$('document').ready(function () {
+  $.get('https://fourtonfish.com/hellosalut/?lang=fr', function (data) {
+    $('DIV#hello').text(data.hello);
   });
-};
-
-htmlDoc.ready(ajaxGet);
+});

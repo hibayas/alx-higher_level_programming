@@ -1,20 +1,16 @@
 #!/usr/bin/python3
+# 9-max_integer.py
+# Brennan D Baraban <375@holbertonschool.com>
+
+
 def max_integer(my_list=[]):
-    """
-    Function that finds an integer.
+    """Find the biggest integer of a list."""
+    if len(my_list) == 0:
+        return (None)
 
-    Operation is carried out assuming only integers are present in the list.
-    The biggest number in the list is the integer to search for.
+    big = my_list[0]
+    for i in range(len(my_list)):
+        if my_list[i] > big:
+            big = my_list[i]
 
-    Args:
-        my_list: List containing integers
-
-    Returns:
-        Biggest number in list, or None if list is empty
-    """
-
-    if my_list != []:
-        newList = sorted(my_list)
-        lastIdx = len(newList) - 1
-        return newList[lastIdx]
-    return None
+    return (big)

@@ -1,16 +1,10 @@
 #!/usr/bin/python3
+# 8-multiple_returns.py
+# Brennan D Baraban <375@holbertonschool.com>
+
+
 def multiple_returns(sentence):
-    """
-    Function to get length of a string and first character.
-
-    Args:
-        sentence: String to get character and length from
-
-    Returns:
-        Length of sentence and first character as tuple
-    """
-
-    strLen = len(sentence)
-    if strLen > 0:
-        return strLen, sentence[0]
-    return strLen, None
+    """Returns the length of a string and its first character."""
+    if sentence == "":
+        return (0, None)
+    return (len(sentence), sentence[0])

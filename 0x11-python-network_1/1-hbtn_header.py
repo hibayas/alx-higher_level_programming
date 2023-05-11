@@ -1,35 +1,15 @@
 #!/usr/bin/python3
-"""This module contains code which displays value of `X-Request-Id` variable
+"""Displays the X-Request-Id header variable of a request to a given URL.
+
+Usage: ./1-hbtn_header.py <URL>
 """
-
-from urllib.request import Request, urlopen
-from urllib.error import URLError
-from sys import argv
-
-
-def print_id():
-    """This function prints the `X-Request-Id` value in the response header of
-    a url passed in as first argument
-    """
-
-    url = argv[1]
-    req = Request(url)
-
-    try:
-        with urlopen(req) as response:
-            response_header = response.info()
-    except URLError as e:
-        if hasattr(e, 'reason'):
-            print('We failed to reach a server.')
-            print("Reason: ", e.reason)
-        elif hasattr(e, 'code'):
-            print("The server couldn't fulfill the request.")
-            print("Error code: ", e.code)
-        exit(1)
-
-    if response_header.get('X-Request-Id'):
-        print(response_header['X-Request-Id'])
+import sys
+import urllib.request
 
 
 if __name__ == "__main__":
-    print_id()
+    url = sys.argv[1]
+
+    request = urllib.request.Request(url)
+    with urllib.request.urlopen(request) as response:
+        print(dict(response.headers).get("X-Request-Id"))

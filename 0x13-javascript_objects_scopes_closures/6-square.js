@@ -1,20 +1,10 @@
 #!/usr/bin/node
-// defines a `Square` which inherits from `Rectangle`
-
-const SuperSquare = require('./5-square');
-
-class Square extends SuperSquare {
+module.exports = class Square extends require('./5-square.js') {
   charPrint (c) {
-    if (c === undefined || !c) {
-      c = 'X';
+    if (c === undefined) {
+      this.print();
     } else {
-      c = c.toString();
-    }
-    for (let i = 0; i < this.height; i++) {
-      const line = c.repeat(this.width);
-      console.log(line);
+      for (let i = 0; i < this.height; i++) console.log(c.repeat(this.width));
     }
   }
-}
-
-module.exports = Square;
+};

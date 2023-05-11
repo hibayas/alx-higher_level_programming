@@ -1,23 +1,16 @@
 #!/usr/bin/python3
-"""This module contains code to `POST` an email to a url passed as argument
+"""Sends a POST request to a given URL with a given email.
+
+Usage: ./6-post_email.py <URL> <email>
+  - Displays the body of the response.
 """
-
+import sys
 import requests
-from sys import argv
-
-
-def post_email():
-    """Sends an email to a server"""
-
-    url = argv[1]
-    email = argv[2]
-    payload = {"email": email, }
-    response = requests.post(url, data=payload)
-    if response.status_code == 200:
-        print(response.text)
-    else:
-        print("[{}] {}".format(response.status_code, response.text))
 
 
 if __name__ == "__main__":
-    post_email()
+    url = sys.argv[1]
+    value = {"email": sys.argv[2]}
+
+    r = requests.post(url, data=value)
+    print(r.text)

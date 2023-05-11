@@ -1,40 +1,33 @@
 #!/usr/bin/python3
+# 12-roman_to_int.py
+# Brennan D Baraban <375@holbertonschool.com>
+
+
 def roman_to_int(roman_string):
-    """
-    Function to return the integer value of a number in roman numerals..
+    """Converts a roman numeral to an integer."""
+    if (not isinstance(roman_string, str) or
+            roman_string is None):
+        return (0)
 
-    Parameters:
-        roman_string: String containing the roman numerals.
+    roman_dict = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000
+    }
+    num = 0
 
-    Return:
-        0 if argument is not a string or None.
-    """
+    for i in range(len(roman_string)):
+        if roman_dict.get(roman_string[i], 0) == 0:
+            return (0)
 
-    try:
-        roman_string = roman_string.upper()
-    except AttributeError:
-        return 0
+        if (i != (len(roman_string) - 1) and
+                roman_dict[roman_string[i]] < roman_dict[roman_string[i + 1]]):
+                num += roman_dict[roman_string[i]] * -1
 
-    roman_dict = \
-        {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
-    jump = False
-    value = 0
-
-    for idx in range(len(roman_string) - 1, -1, -1):
-        if jump:
-            jump = False
-            continue
-
-        if roman_string[idx] in roman_dict.keys():
-            curr_num = roman_dict[roman_string[idx]]
-            left_num = roman_dict[roman_string[idx - 1]]
-
-            if idx == 0:
-                left_num = 1001
-            if curr_num > left_num:
-                jump = True
-                value += (curr_num - left_num)
-            else:
-                value += curr_num
-
-    return value
+        else:
+            num += roman_dict[roman_string[i]]
+    return (num)

@@ -1,35 +1,31 @@
 #!/usr/bin/python3
-"""This is the ``5-text_indentation`` module
-
-It contains the function ``text_indentation``
-"""
+# 5-text_indentation.py
+# Brennan D Baraban <375@holbertonschool.com>
+"""Defines a text-indentation function."""
 
 
 def text_indentation(text):
-    """Prints a text with 2 new lines in place of characters in ['.', '?', ':']
+    """Print text with two new lines after each '.', '?', and ':'.
 
     Args:
-        text (str): The text to be indented
-
+        text (string): The text to print.
     Raises:
-        TypeError: If `text` is not a string
-
-    Example:
-    >>> text_indentation("One time for the real ones. Are they really real?")
-    One time for the real ones.
-    <BLANKLINE>
-    Are they really real?
-    <BLANKLINE>
+        TypeError: If text is not a string.
     """
-
     if not isinstance(text, str):
         raise TypeError("text must be a string")
 
-    # loop through for each special_char and replace with newlines
-    for special_char in ('.', '?', ':'):
-        text = (special_char + ('\n' * 2)).join(
-                [line.lstrip(' ') for line in text.split(special_char)]
-                )
+    c = 0
+    while c < len(text) and text[c] == ' ':
+        c += 1
 
-    # print newly formed string
-    print("{}".format(text), end='')
+    while c < len(text):
+        print(text[c], end="")
+        if text[c] == "\n" or text[c] in ".?:":
+            if text[c] in ".?:":
+                print("\n")
+            c += 1
+            while c < len(text) and text[c] == ' ':
+                c += 1
+            continue
+        c += 1

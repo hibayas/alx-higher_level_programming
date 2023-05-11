@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-"""A file that has definition of a class Square"""
+# 0-square.py
+# Brennan D Baraban <375@holbertonschool.com>
+"""Define a class Square."""
 
 
 class Square:
-    """This a class that does nothing
-    """
+    """Represent a square."""
     pass

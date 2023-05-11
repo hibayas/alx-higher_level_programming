@@ -1,105 +1,72 @@
 #!/usr/bin/python3
-"""A module with definition of a class `Square`"""
+# 101-square.py
+# Brennan D Baraban <375@holbertonschool.com>
+"""Define a class Square."""
 
 
 class Square:
-    """A class that defines a square by private, public instance attribute
-    """
+    """Represent a square."""
 
     def __init__(self, size=0, position=(0, 0)):
-        """Initializes the intance attribute and raises exception if error
+        """Initialize a new square.
 
         Args:
-            size (int): Size of the square
-            position (tuple): A tuple of two positive number for x and y axis
+            size (int): The size of the new square.
+            position (int, int): The position of the new square.
         """
-        Square.check_size(size)
-        self.__size = size
-
-        Square.check_pos(position)
-        self.__position = position
+        self.size = size
+        self.position = position
 
     @property
     def size(self):
-        """:obj:`int`: Current size of the square
-
-        The setter method raises an exception if the value is not int or < 0
-        """
-        return self.__size
+        """Get/set the current size of the square."""
+        return (self.__size)
 
     @size.setter
     def size(self, value):
-        Square.check_size(value)
+        if not isinstance(value, int):
+            raise TypeError("size must be an integer")
+        elif value < 0:
+            raise ValueError("size must be >= 0")
         self.__size = value
-
-    def area(self):
-        """Method that returns the current area of the square"""
-        return self.__size ** 2
 
     @property
     def position(self):
-        """:obj:`tuple` of :obj:`int`: index 0 sets spaces and 1 sets newline
-
-        The setter method raises an exception of ValueError or TypeError
-        """
-        return self.__position
+        """Get/set the current position of the square."""
+        return (self.__position)
 
     @position.setter
     def position(self, value):
-        Square.check_pos(value)
+        if (not isinstance(value, tuple) or
+                len(value) != 2 or
+                not all(isinstance(num, int) for num in value) or
+                not all(num >= 0 for num in value)):
+            raise TypeError("position must be a tuple of 2 positive integers")
         self.__position = value
 
+    def area(self):
+        """Return the current area of the square."""
+        return (self.__size * self.__size)
+
     def my_print(self):
-        """Prints the square using `#` signs"""
+        """Print the square with the # character."""
         if self.__size == 0:
-            print()
-        else:
-            for i in range(self.__position[1]):
-                print()
-            for i in range(self.__size):
-                print(" " * self.__position[0] + "#" * self.__size)
+            print("")
+            return
+
+        [print("") for i in range(0, self.__position[1])]
+        for i in range(0, self.__size):
+            [print(" ", end="") for j in range(0, self.__position[0])]
+            [print("#", end="") for k in range(0, self.__size)]
+            print("")
 
     def __str__(self):
-        """Returns the square made using `#` signs"""
-
-        sq_str = ""
-        if self.__size == 0:
-            return sq_str
-        else:
-            x, y = self.__position
-
-            for _ in range(y):
-                sq_str = sq_str + "\n"
-
-            for _ in range(self.__size):
-                if x:
-                    sq_str = sq_str + (' ' * x)
-                sq_str += ('#' * self.__size) + '\n'
-            sq_str = sq_str[:-1]
-            return sq_str
-
-    @staticmethod
-    def check_size(size):
-        """Checks if the size passed to class Square is valid
-
-        Args:
-            size (int): The size of the square at a given instance
-        """
-
-        if type(size) != int:
-            raise TypeError("size must be an integer")
-        if size < 0:
-            raise ValueError("size must be >= 0")
-
-    @staticmethod
-    def check_pos(position):
-        """Checks if the position passed to class Square is valid
-
-        Args:
-            position: The position at which the square should be printed
-        """
-
-        if type(position) != tuple or len(position) != 2 \
-            or type(position[0]) != int or type(position[1]) != int \
-                or position[0] < 0 or position[1] < 0:
-            raise TypeError("position must be a tuple of 2 positive integers")
+        """Define the print() representation of a Square."""
+        if self.__size != 0:
+            [print("") for i in range(0, self.__position[1])]
+        for i in range(0, self.__size):
+            [print(" ", end="") for j in range(0, self.__position[0])]
+            [print("#", end="") for k in range(0, self.__size)]
+            if i != self.__size - 1:
+                print("")
+        return ("")

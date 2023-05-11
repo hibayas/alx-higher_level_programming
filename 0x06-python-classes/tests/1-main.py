@@ -1,16 +1,16 @@
 #!/usr/bin/python3
-Square = __import__("1-square").Square
+Square = __import__('1-square').Square
 
-my_sq = Square(12)
-print(type(my_sq))
-print(my_sq.__dict__)
-
-try:
-    print(my_sq.size)
-except Exception as ex:
-    print(ex)
+my_square = Square(3)
+print(type(my_square))
+print(my_square.__dict__)
 
 try:
-    print(my_sq.__size)
-except Exception as ex:
-    print(ex)
+    print(my_square.size)
+except Exception as e:
+    print(e)
+
+try:
+    print(my_square.__size)
+except Exception as e:
+    print(e)

@@ -1,23 +1,15 @@
 #!/usr/bin/python3
+# 10-divisible_by_2.py
+# Brennan D Baraban <375@holbertonschool.com>
+
+
 def divisible_by_2(my_list=[]):
-    """
-    Function to find multiples of 2 in a list of integers.
+    """Find all multiples of 2 in a list."""
+    multiples = []
+    for i in range(len(my_list)):
+        if my_list[i] % 2 == 0:
+            multiples.append(True)
+        else:
+            multiples.append(False)
 
-    It is assumed list will only contain integers.
-
-    Args:
-        my_list: List containing integers
-
-    Returns:
-        New list containing True if index in my_list is divisible by 2 or
-        false if not.
-    """
-
-    if my_list != []:
-        newList = []
-        for integer in my_list:
-            if integer % 2 == 0:
-                newList.append(True)
-            else:
-                newList.append(False)
-        return newList
+    return (multiples)

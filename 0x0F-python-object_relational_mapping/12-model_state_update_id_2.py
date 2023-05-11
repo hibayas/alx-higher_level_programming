@@ -1,44 +1,21 @@
 #!/usr/bin/python3
-"""
-Module to connect to a database `hbtn_0e_6_usa` and query `State` objects
-It queries a MySQL database on `localhost` port `3306`
-usage: <script> <username> <password> <database>
-"""
-
-from model_state import Base, State
+# Changes the name of the State object with id = 2 to
+# New Mexico in the database hbtn_0e_6_usa.
+# Usage: ./12-model_state_update_id_2.py <mysql username> /
+#                                        <mysql password> /
+#                                        <database name>
+import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sys import argv, stderr
+from model_state import State
 
-
-def updateState2():
-    """updates the `name` attribute of a `State` object with id == 2"""
-
-    if len(argv) != 4:
-        stderr.write("invalid number of arguments\n")
-        return
-
-    uname, password, db_name = argv[1], argv[2], argv[3]
-    state_id = 2
-    state_new_name = "New Mexico"
-    db_url = "mysql+mysqldb://{}:{}@localhost:3306/{}".format(
-        uname, password, db_name)
-
-    engine = create_engine(db_url, pool_pre_ping=True, echo=False)
-
-    Base.metadata.create_all(engine, checkfirst=True)
+if __name__ == "__main__":
+    engine = create_engine("mysql+mysqldb://{}:{}@localhost/{}"
+                           .format(sys.argv[1], sys.argv[2], sys.argv[3]),
+                           pool_pre_ping=True)
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    state_to_update = session.query(State).filter_by(id=state_id).first()
-    if state_to_update:
-        state_to_update.name = state_new_name
-    else:
-        print("Not found")
-
+    state = session.query(State).filter_by(id=2).first()
+    state.name = "New Mexico"
     session.commit()
-    session.close()
-
-
-if __name__ == "__main__":
-    updateState2()

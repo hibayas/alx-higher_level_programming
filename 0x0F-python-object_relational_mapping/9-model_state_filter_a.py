@@ -1,41 +1,21 @@
 #!/usr/bin/python3
-"""
-Module to connect to a database `hbtn_0e_6_usa` and query `State` objects
-It queries a MySQL database on `localhost` port `3306`
-usage: <script> <username> <password> <database>
-"""
-
-from model_state import Base, State
+# Lists all State objects that contain the letter a
+# from the database hbtn_0e_6_usa.
+# Usage: ./9-model_state_filter_a.py <mysql username> /
+#                                    <mysql password> /
+#                                    <database name>
+import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sys import argv, stderr
+from model_state import State
 
-
-def printAllaStates():
-    """print all `State` objects with letter `a` in the `name` attribute"""
-
-    if len(argv) != 4:
-        stderr.write("invalid number of arguments\n")
-        return
-
-    uname, password, db_name = argv[1], argv[2], argv[3]
-    db_url = "mysql+mysqldb://{}:{}@localhost:3306/{}".format(
-        uname, password, db_name)
-
-    engine = create_engine(db_url, pool_pre_ping=True, echo=False)
-
-    Base.metadata.create_all(engine)
+if __name__ == "__main__":
+    engine = create_engine("mysql+mysqldb://{}:{}@localhost/{}"
+                           .format(sys.argv[1], sys.argv[2], sys.argv[3]),
+                           pool_pre_ping=True)
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    states = session.query(State).filter(
-        State.name.like('%a%')).order_by(State.id).all()
-
-    for state in states:
-        print("{}: {}".format(state.id, state.name))
-
-    session.close()
-
-
-if __name__ == "__main__":
-    printAllaStates()
+    for state in session.query(State).order_by(State.id):
+        if "a" in state.name:
+            print("{}: {}".format(state.id, state.name))

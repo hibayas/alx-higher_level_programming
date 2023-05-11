@@ -1,7 +1,9 @@
 #!/usr/bin/python3
-"""Module ``5-base_geometry``"""
+# 5-base_geometry.py
+# Brennan D Baraban <375@holbertonschool.com>
+"""Defines an empty class BaseGeometry."""
 
 
 class BaseGeometry:
-    """Empty class"""
+    """Represent base geometry."""
     pass

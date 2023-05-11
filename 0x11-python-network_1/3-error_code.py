@@ -1,30 +1,20 @@
 #!/usr/bin/python3
-"""Sends a request to given url and displays the body of the response in utf-8
-Error handling is allowed here
+"""Sends a request to a given URL and displays the response body.
+
+Usage: ./3-error_code.py <URL>
+  - Handles HTTP errors.
 """
-
-from urllib.request import Request, urlopen
-from urllib.error import URLError
-from sys import argv
-
-
-def print_body_and_handle_errors():
-    """Prints the body of the response from a server in utf-8"""
-    url = argv[1]
-    req = Request(url)
-
-    try:
-        with urlopen(req) as response:
-            body = response.read()
-            print(body.decode('utf-8'))
-    except URLError as e:
-        if hasattr(e, 'code'):
-            print(f"Error code: {e.code}")
-        elif hasattr(e, 'reason'):
-            print(f"Error reason: {e.reason}")
-        else:
-            print(f"{e}")
+import sys
+import urllib.error
+import urllib.request
 
 
 if __name__ == "__main__":
-    print_body_and_handle_errors()
+    url = sys.argv[1]
+
+    request = urllib.request.Request(url)
+    try:
+        with urllib.request.urlopen(request) as response:
+            print(response.read().decode("ascii"))
+    except urllib.error.HTTPError as e:
+        print("Error code: {}".format(e.code))

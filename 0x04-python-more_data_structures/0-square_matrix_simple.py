@@ -1,18 +1,8 @@
 #!/usr/bin/python3
+# 0-square_matrix_simple.py
+# Brennan D Baraban <375@holbertonschool.com>
+
+
 def square_matrix_simple(matrix=[]):
-    """
-    Function to square every value in a 2D matrix.
-
-    Parameters:
-        matrix: Two dimensional matrix of integers.
-
-    Return:
-        The new matrix populated with the squares in the corresponding index.
-    """
-
-    if matrix:
-        new_matrix = []
-        for ls in matrix:
-            new_matrix.append(list(map(lambda x: x ** 2, ls)))
-
-    return new_matrix
+    """Compute the square value of all integers of a matrix."""
+    return ([list(map(lambda x: x * x, row)) for row in matrix])

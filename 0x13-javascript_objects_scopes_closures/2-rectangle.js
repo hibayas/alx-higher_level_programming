@@ -1,13 +1,6 @@
 #!/usr/bin/node
-// defines a rectangle based on width and height
-
-class Rectangle {
+module.exports = class Rectangle {
   constructor (w, h) {
-    if (parseInt(w) > 0 && parseInt(h) > 0) {
-      this.width = w;
-      this.height = h;
-    }
+    if (w > 0 && h > 0) { [this.width, this.height] = [w, h]; }
   }
-}
-
-module.exports = Rectangle;
+};

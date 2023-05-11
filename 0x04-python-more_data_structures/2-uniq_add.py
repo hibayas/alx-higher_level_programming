@@ -1,8 +1,11 @@
 #!/usr/bin/python3
-def uniq_add(my_list=[]):
-    """
-    Returns the sum of all unique occurences of an integer in a 1D list.
-    """
+# 2-uniq_add.py
+# Brennan D Baraban <375@holbertonschool.com>
 
-    total = sum(set(my_list), 0)
-    return total
+
+def uniq_add(my_list=[]):
+    """Add all unique integers in a list (once for each integer)."""
+    result = 0
+    for x in set(my_list):
+        result += x
+    return (result)

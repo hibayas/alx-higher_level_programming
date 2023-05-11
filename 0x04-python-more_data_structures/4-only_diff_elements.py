@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-def only_diff_elements(set_1, set_2):
-    """
-    Function that returns a set of all exclusive elements in two lists.
-    """
+# 4-only_diff_elements.py
+# Brennan D Baraban <375@holbertonschool.com>
 
-    return set_1 ^ set_2
+
+def only_diff_elements(set_1, set_2):
+    """Return a set of all elements present in only one set."""
+    return (set_1 ^ set_2)

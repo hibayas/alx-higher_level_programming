@@ -1,34 +1,19 @@
 #!/usr/bin/python3
-"""Module to connect to a database `hbtn_0e_6_usa` and list all `State` objects
-usage: <script> <username> <password> <database>
-"""
-
-from model_state import Base, State
+# Lists all State objects from the database hbtn_0e_6_usa.
+# Usage: ./7-model_state_fetch_all.py <mysql username> /
+#                                     <mysql password> /
+#                                     <database name>
+import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sys import argv, stderr
+from model_state import State
 
-
-def listStates():
-    """Lists all `State` objects"""
-
-    if len(argv) != 4:
-        stderr.write("invalid number of arguments\n")
-        return
-
-    uname, password, db_name = argv[1], argv[2], argv[3]
-    db_url = "mysql+mysqldb://{}:{}@localhost:3306/{}".format(
-        uname, password, db_name)
-
-    engine = create_engine(db_url)
-
-    Base.metadata.create_all(engine)
+if __name__ == "__main__":
+    engine = create_engine("mysql+mysqldb://{}:{}@localhost/{}"
+                           .format(sys.argv[1], sys.argv[2], sys.argv[3]),
+                           pool_pre_ping=True)
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    for state in session.query(State).order_by(State.id).all():
+    for state in session.query(State).order_by(State.id):
         print("{}: {}".format(state.id, state.name))
-
-
-if __name__ == "__main__":
-    listStates()
