@@ -1,18 +1,23 @@
 #!/usr/bin/python3
-"""A script that
-- takes in a URL
-- sends a request to the URL
-- displays the body of the response.
-"""
-import sys
+"""This module contains code to display body of response if successful"""
+
 import requests
+from sys import argv
+
+
+def handle_errors():
+    """Sends a `GET` request to a url and displays the body of the response
+    only if the response code is less than 400
+    """
+
+    url = argv[1]
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        print(response.text)
+    except requests.exceptions.RequestException:
+        print(f"Error code: {response.status_code}")
 
 
 if __name__ == "__main__":
-    url = sys.argv[1]
-
-    r = requests.get(url)
-    if r.status_code >= 400:
-        print("Error code: {}".format(r.status_code))
-    else:
-        print(r.text)
+    handle_errors()
